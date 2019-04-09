@@ -1,0 +1,26 @@
+---
+title: "Polls"
+author: "Mike Silva"
+date: "4/9/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+
+library(tidyverse)
+```
+
+```{r download}
+x <- read_csv("https://raw.githubusercontent.com/TheUpshot/2018-live-poll-results/master/data/elections-poll-nj03-1.csv")
+x1 <- read_csv("https://raw.githubusercontent.com/TheUpshot/2018-live-poll-results/master/data/elections-poll-nj03-3.csv")
+x2 <- read_csv("https://raw.githubusercontent.com/TheUpshot/2018-live-poll-results/master/data/elections-poll-nj07-1.csv")
+x3 <- read_csv("https://raw.githubusercontent.com/TheUpshot/2018-live-poll-results/master/data/elections-poll-nj07-3.csv")
+x4 <- read.csv("https://raw.githubusercontent.com/TheUpshot/2018-live-poll-results/master/data/elections-poll-nj11-3.csv")
+
+```
+
+```{r}
+
+```
+
