@@ -9,18 +9,101 @@ output: html_document
 knitr::opts_chunk$set(echo = FALSE)
 
 library(tidyverse)
+library(dplyr)
+library(purrr)
+library(fs)
 ```
 
 ```{r download}
-x <- read_csv("https://raw.githubusercontent.com/TheUpshot/2018-live-poll-results/master/data/elections-poll-nj03-1.csv")
-x1 <- read_csv("https://raw.githubusercontent.com/TheUpshot/2018-live-poll-results/master/data/elections-poll-nj03-3.csv")
-x2 <- read_csv("https://raw.githubusercontent.com/TheUpshot/2018-live-poll-results/master/data/elections-poll-nj07-1.csv")
-x3 <- read_csv("https://raw.githubusercontent.com/TheUpshot/2018-live-poll-results/master/data/elections-poll-nj07-3.csv")
-x4 <- read.csv("https://raw.githubusercontent.com/TheUpshot/2018-live-poll-results/master/data/elections-poll-nj11-3.csv")
+x <- read_csv("https://raw.githubusercontent.com/TheUpshot/2018-live-poll-results/master/data/elections-poll-nj03-1.csv", col_types = 
+                cols(
+  .default = col_character(),
+  turnout_scale = col_double(),
+  turnout_score = col_double(),
+  w_LV = col_double(),
+  w_RV = col_double(),
+  final_weight = col_double(),
+  timestamp = col_datetime(format = "")
+))
+x1 <- read_csv("https://raw.githubusercontent.com/TheUpshot/2018-live-poll-results/master/data/elections-poll-nj03-3.csv", col_types = 
+                 cols(
+  .default = col_character(),
+  turnout_scale = col_double(),
+  turnout_score = col_double(),
+  w_LV = col_double(),
+  w_RV = col_double(),
+  final_weight = col_double(),
+  timestamp = col_datetime(format = "")
+))
+x2 <- read_csv("https://raw.githubusercontent.com/TheUpshot/2018-live-poll-results/master/data/elections-poll-nj07-1.csv", col_types = cols(
+  .default = col_character(),
+  turnout_scale = col_double(),
+  turnout_score = col_double(),
+  w_LV = col_double(),
+  w_RV = col_double(),
+  final_weight = col_double(),
+  timestamp = col_datetime(format = "")
+))
+x3 <- read_csv("https://raw.githubusercontent.com/TheUpshot/2018-live-poll-results/master/data/elections-poll-nj07-3.csv", col_types = 
+                 cols(
+  .default = col_character(),
+  turnout_scale = col_double(),
+  turnout_score = col_double(),
+  w_LV = col_double(),
+  w_RV = col_double(),
+  final_weight = col_double(),
+  timestamp = col_datetime(format = "")
+))
+x4 <- read_csv("https://raw.githubusercontent.com/TheUpshot/2018-live-poll-results/master/data/elections-poll-nj11-3.csv", col_types = 
+                 cols(
+  .default = col_character(),
+  turnout_scale = col_double(),
+  turnout_score = col_double(),
+  w_LV = col_double(),
+  w_RV = col_double(),
+  final_weight = col_double(),
+  timestamp = col_datetime(format = "")
+))
 
 ```
 
 ```{r}
+xnew <-
+  x %>%
+  select(response)
 
+xnew1 <- 
+  x1 %>%
+  select(response)
+
+xnew2 <-
+  x2 %>%
+  select(response)
+
+xnew3 <-
+  x3 %>%
+  select(response)
+
+xnew4 <-
+  x4 %>%
+  select(response)
+```
+
+
+```{r}
+bind <- bind_rows(xnew, xnew1, xnew2, xnew3, xnew4, .id = "my_id")
+
+bind %>%
+  filter(! response %in% c("Rep", "Dem", "Und")) %>%
+  group_by(my_id) %>%
+  count()
+```
+
+```{r}
+download.file(url= "https://github.com/TheUpshot/2018-live-poll-results/archive/master.zip", destfile = "zip.zip", mode = "wb")
+
+unzip("zip.zip")
+
+y <- dir_ls("2018-live-poll-results-master/data")56uk
 ```
 
